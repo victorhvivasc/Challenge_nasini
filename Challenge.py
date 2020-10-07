@@ -7,13 +7,14 @@ import pyRofex
 
 try:
     instrumento = sys.argv[1]
+    assert(instrumento[0] != '-'), "El primer parametro debe ser el tipo de instrumento"
     REMARKETS_USER = sys.argv[3] if sys.argv[2] == "-u" else input('Ingrese el usuario por favor: ')
     REMARKETS_PASS = sys.argv[5] if sys.argv[4] == "-p" else input('Ingrese la contraseña por favor: ')
     ACCOUNT = sys.argv[7] if sys.argv[6] == "-a" else input('Ingrese la cuenta a utilizar por favor: ')
     PRECIO_BASE = 75.25
 except Exception as e:
     print("Por favor configure el comando con el siguiente formato: \n \n "
-          ">>>python challenge.py INSTRUMENTO -u NOMBRE_USUARIO -p CONTRASEÑA -a CUENTA\n \n")
+          f">>>python challenge.py INSTRUMENTO -u NOMBRE_USUARIO -p CONTRASEÑA -a CUENTA\n {e}\n \n")
 
 try:
     print('Iniciando sesión en Remarkets')
