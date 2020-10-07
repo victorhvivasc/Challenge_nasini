@@ -2,6 +2,7 @@
 Aplicación sencilla para evaluación en proceso de reclutamiento
 
 ## python version 3.8.3
+## pyrofex==0.3.0
 
 # Ejemplo de consulta:
 
