@@ -14,7 +14,7 @@ promt$python challenge.py DOOct20 -u NOMBRE_USUARIO -p CONTRASEÑA -a CUENTA
 #### -p: Contraseña
 #### -a: Cuenta
 
-#### Nota: debe respetarse el orden de los parametros a suministrar
+#### Nota: debe respetarse el orden de los parametros a suministrar, en caso contrario se desencadenan errores y posibles soluciones
 
 # Respuesta positiva esperada:
 
@@ -26,10 +26,17 @@ promt$python challenge.py DOOct20 -u NOMBRE_USUARIO -p CONTRASEÑA -a CUENTA
 ## Ingresando orden a: $78.84
 ## Cerrando sesión en Remarkets
 
-# Respuesta negativa esperada:
+# Respuestas negativa esperada:
 
-## Iniciando sesión en Remarkets
-## Error:  Simbolo invalido
-## Cerrando sesión en Remarkets
+## - Error:  Simbolo invalido: Implica que fue mal suministrado el tipo de documento.
+## - El primer parametro debe ser el tipo de instrumento: Implica que el primer parametro suministrado correspondia a uno de usuario, contraseña, cuenta.
+## - Por favor configure el comando con el siguiente formato: >>>python challenge.py INSTRUMENTO -u NOMBRE_USUARIO -p CONTRASEÑA -a CUENTA: Significa que aunque el primer parametro es posiblemente un documento el resto de los parametros estan incompletos.
+## - Ingrese el usuario por favor: Significa que el usuario fue ingresado de forma erronea y ofrece solventar la situación reingresando el correcto.
+## - Ingrese la contraseña por favor: Significa que la contraseño fue ingresada de forma erronea y ofrece solventar la situación reingresando la correcta.
+## - Ingrese la cuenta a utilizar por favor: Significa que la cuenta fue ingresada de forma erronea y ofrece solventar la situación reingresando la correcta.
+## - No se pudo concretar la orden, fallo en la cuenta suministrada: Indica que el tipo de cuenta suministrado fue rechazado por el servidor.
+## - Error: Authentication fails. Incorrect User or Password: Implica que el usuario o la contraseña suministrada fue rechazada por el servidor.
+
+
 
 
