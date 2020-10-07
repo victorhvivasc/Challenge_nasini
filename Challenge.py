@@ -4,7 +4,7 @@ import pyRofex
 # aunque en el ejemplo no se muestra agrego el account como parametro por ser necesario para los BIDS nuevos
 REMARKETS_USER = sys.argv[3]
 REMARKETS_PASS = sys.argv[5]
-ACCOUNT = sys.argv[5]
+ACCOUNT = sys.argv[5] if sys.argv[4] == "-a" else input('Ingrese la cuenta a utilizar por favor: ')
 instrumento = sys.argv[1]
 PRECIO_BASE = 75.25
 
@@ -17,7 +17,10 @@ try:
 # separo la consulta en consulta 1 y 2 por solicitud explicita, pero podria hacerse en 1 linea.
     consulta1 = [pyRofex.MarketDataEntry.LAST]
     ultima = pyRofex.get_market_data(instrumento, consulta1, depth=1)
+
+    # La API no verifica la cuenta en esta instancia por eso agrego el assert
     assert(ultima['status'] == 'OK'), "Simbolo invalido"
+
     print(f"Consultando simbolo:   {instrumento}" + "\n" +
           f"Ultimo precio operado: ${ultima['marketData']['LA']['price']}")
     print("Consultando BID")
@@ -35,6 +38,9 @@ try:
                                    size=1,
                                    price=bid_nuevo,
                                    order_type=pyRofex.OrderType.LIMIT)
+        # En caso de que la cuenta suministrada sea incongruente con los datos se eleva este error
+        assert(order["status"] == "OK"), "No se pudo concretar la orden, fallo en la cuenta suministrada"
+        print("Orden Completada")
         print("Cerrando sesión en Remarkets")
     else:
         print("No hay BID's activos"+"\n"+f"Ingresando orden a ${PRECIO_BASE}")
@@ -43,6 +49,8 @@ try:
                                    size=1,
                                    price=PRECIO_BASE,
                                    order_type=pyRofex.OrderType.LIMIT)
+        assert (order["status"] == "OK"), "No se pudo concretar la orden, fallo en la cuenta suministrada"
+        print("Orden Completada")
         print("Cerrando sesión en Remarkets")
 except Exception as e:
     print("Error: ", e)
