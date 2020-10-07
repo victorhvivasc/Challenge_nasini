@@ -2,9 +2,9 @@
 import sys
 import pyRofex
 # aunque en el ejemplo no se muestra agrego el account como parametro por ser necesario para los BIDS nuevos
-REMARKETS_USER = sys.argv[sys.argv.index("-u")+1]
-REMARKETS_PASS = sys.argv[sys.argv.index("-p")+1]
-ACCOUNT = sys.argv[sys.argv.index("-a")+1]
+REMARKETS_USER = sys.argv[3]
+REMARKETS_PASS = sys.argv[5]
+ACCOUNT = sys.argv[5]
 instrumento = sys.argv[1]
 PRECIO_BASE = 75.25
 
