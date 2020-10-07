@@ -1,12 +1,19 @@
 # -*- coding: utf 8 -*-
 import sys
 import pyRofex
+
 # aunque en el ejemplo no se muestra agrego el account como parametro por ser necesario para los BIDS nuevos
-REMARKETS_USER = sys.argv[3]
-REMARKETS_PASS = sys.argv[5]
-ACCOUNT = sys.argv[5] if sys.argv[4] == "-a" else input('Ingrese la cuenta a utilizar por favor: ')
-instrumento = sys.argv[1]
-PRECIO_BASE = 75.25
+# tambien se agrega verificación minima de parametros ingresaados junto con correccion asistida de los mismos
+
+try:
+    instrumento = sys.argv[1]
+    REMARKETS_USER = sys.argv[3] if sys.argv[2] == "-u" else input('Ingrese el usuario por favor: ')
+    REMARKETS_PASS = sys.argv[5] if sys.argv[4] == "-p" else input('Ingrese la contraseña por favor: ')
+    ACCOUNT = sys.argv[7] if sys.argv[6] == "-a" else input('Ingrese la cuenta a utilizar por favor: ')
+    PRECIO_BASE = 75.25
+except Exception as e:
+    print("Por favor configure el comando con el siguiente formato: \n \n "
+          ">>>python challenge.py -u NOMBRE_USUARIO -p CONTRASEÑA -a CUENTA\n \n")
 
 try:
     print('Iniciando sesión en Remarkets')
@@ -18,7 +25,7 @@ try:
     consulta1 = [pyRofex.MarketDataEntry.LAST]
     ultima = pyRofex.get_market_data(instrumento, consulta1, depth=1)
 
-    # La API no verifica la cuenta en esta instancia por eso agrego el assert
+    # La API verifica la cuenta pero no el instrumento en esta instancia por eso agrego el assert
     assert(ultima['status'] == 'OK'), "Simbolo invalido"
 
     print(f"Consultando simbolo:   {instrumento}" + "\n" +
@@ -38,6 +45,7 @@ try:
                                    size=1,
                                    price=bid_nuevo,
                                    order_type=pyRofex.OrderType.LIMIT)
+
         # En caso de que la cuenta suministrada sea incongruente con los datos se eleva este error
         assert(order["status"] == "OK"), "No se pudo concretar la orden, fallo en la cuenta suministrada"
         print("Orden Completada")
