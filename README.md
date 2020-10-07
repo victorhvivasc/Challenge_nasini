@@ -13,7 +13,7 @@ promt$python challenge.py DOOct20 -u NOMBRE_USUARIO -p CONTRASEÑA -a CUENTA
 #### -p: Contraseña
 #### -a: Cuenta
 
-#### Nota: el primer parametro debe ser siempre el tipo de instrumento, el resto de los parametros 
+#### Nota: debe respetarse el orden de los parametros a suministrar
 
 # Respuesta positiva esperada:
 
