@@ -13,7 +13,7 @@ try:
     PRECIO_BASE = 75.25
 except Exception as e:
     print("Por favor configure el comando con el siguiente formato: \n \n "
-          ">>>python challenge.py -u NOMBRE_USUARIO -p CONTRASEÑA -a CUENTA\n \n")
+          ">>>python challenge.py INSTRUMENTO -u NOMBRE_USUARIO -p CONTRASEÑA -a CUENTA\n \n")
 
 try:
     print('Iniciando sesión en Remarkets')
@@ -48,6 +48,8 @@ try:
 
         # En caso de que la cuenta suministrada sea incongruente con los datos se eleva este error
         assert(order["status"] == "OK"), "No se pudo concretar la orden, fallo en la cuenta suministrada"
+
+        # Se agrega mensaje de confirmación de la operación para disminuir ansias en los usuarios
         print("Orden Completada")
         print("Cerrando sesión en Remarkets")
     else:
@@ -58,6 +60,7 @@ try:
                                    price=PRECIO_BASE,
                                    order_type=pyRofex.OrderType.LIMIT)
         assert (order["status"] == "OK"), "No se pudo concretar la orden, fallo en la cuenta suministrada"
+        # Se agrega mensaje de confirmación de la operación para disminuir ansias en los usuarios
         print("Orden Completada")
         print("Cerrando sesión en Remarkets")
 except Exception as e:
